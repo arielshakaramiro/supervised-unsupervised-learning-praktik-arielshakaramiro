@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Model artifacts (not tracked - regenerate by running the notebook)
+*.pkl
+*.joblib
+
+# Git workflow guides (local reference only, not part of the project)
+git/

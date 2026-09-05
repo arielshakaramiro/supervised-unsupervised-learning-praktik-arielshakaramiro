@@ -72,15 +72,18 @@ One cluster (setosa) separates perfectly in both plots; the other two clusters s
 
 ### 4. Independent Exploration — Verified Results
 
+> **Methodology note:** the Random Forest vs Logistic Regression comparison below was corrected after a reader ([Ahmet Özel](https://hashnode.com/@ahmetozel)) pointed out a validation-split issue in the companion blog post. Comparing models directly on test-set accuracy and declaring a winner is itself a form of leakage — the decision "peeks" at the test set. The table below reflects the corrected method: models are compared via cross-validation on the training set only, and the test set is touched exactly once, with the winning model, for the final number.
+
 | Experiment | Result |
 |---|---|
-| Random Forest — test accuracy | 90.00% *(vs. 96.67% for Logistic Regression — more complexity ≠ better here)* |
+| Random Forest vs Logistic Regression — CV accuracy (training set only) | LR: 95.83% · RF: 95.00% — **LR wins** |
+| Final test accuracy (Logistic Regression, test set touched once) | 96.67% |
 | KMeans ARI by `n_clusters` | k=2: 0.5399 · **k=3: 0.7302** · k=4: 0.6498 · k=5: 0.6125 · k=6: 0.4475 |
 | KMeans ARI, Iris — without vs with `StandardScaler` | 0.7302 → 0.6201 *(decreased)* |
 | KMeans ARI, Wine — without vs with `StandardScaler` | 0.3711 → 0.8975 *(sharp increase)* |
 | Logistic Regression — Wine dataset accuracy | 94.44% *(triggers a `ConvergenceWarning` without scaling)* |
 
-**Key takeaway:** neither "a more complex model" nor "always scale your features" is a universal rule. Random Forest underperformed Logistic Regression on this test set, and scaling helped dramatically on Wine (features span very different natural scales, e.g. `proline` in the hundreds vs. others under 10) but slightly hurt on Iris (features are already on a similar cm scale). Every number in this table was checked by running the code, not assumed from theory.
+**Key takeaway:** neither "a more complex model" nor "always scale your features" is a universal rule. Random Forest underperformed Logistic Regression even under a proper cross-validated comparison, and scaling helped dramatically on Wine (features span very different natural scales, e.g. `proline` in the hundreds vs. others under 10) but slightly hurt on Iris (features are already on a similar cm scale). Every number in this table was checked by running the code, not assumed from theory — and the model comparison itself was checked twice: once the wrong way, once the right way, arriving at the same conclusion through a trustworthy process.
 
 ## Setup
 
@@ -103,7 +106,7 @@ Verified against:
 
 ## Credits
 
-Base tutorial material from the **rubythalib.ai AI Engineer Bootcamp**, mentor **Daniel Syahputra**. This version has been re-executed, cleaned up (removed empty/debug cells, consolidated evaluation steps), and extended with the independent exploration in Section 8.
+Base tutorial material from the **rubythalib AI Engineer Bootcamp**, mentor **Daniel Syahputra**. This version has been re-executed, cleaned up (removed empty/debug cells, consolidated evaluation steps), and extended with the independent exploration in Section 8.
 
 ## Author
 
